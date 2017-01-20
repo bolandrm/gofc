@@ -10,7 +10,6 @@ package pru
 import "C"
 
 import (
-	"C"
 	"fmt"
 	"math"
 	"os/exec"
