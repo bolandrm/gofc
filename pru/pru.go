@@ -8,10 +8,14 @@ package pru
 #include "pru_loader.h"
 */
 import "C"
-import "unsafe"
-import "fmt"
-import "os/exec"
-import "math"
+
+import (
+	"C"
+	"fmt"
+	"math"
+	"os/exec"
+	"unsafe"
+)
 
 const basePath = "/root/gofc"
 
