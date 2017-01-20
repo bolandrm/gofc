@@ -1,8 +1,8 @@
 package pru
 
 /*
-#cgo CFLAGS: -I${SRCDIR}/../src/pru_loader
-#cgo LDFLAGS: -L${SRCDIR}/../.build -lpruloader -lprussdrv
+#cgo CFLAGS: -I${SRCDIR}/../../src/pru_loader
+#cgo LDFLAGS: -L${SRCDIR}/../../.build -lpruloader -lprussdrv
 #include <stdlib.h>
 #include <stdint.h>
 #include "pru_loader.h"

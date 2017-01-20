@@ -2,7 +2,7 @@ package fc
 
 import (
 	"fmt"
-	"github.com/bolandrm/gofc/pru"
+	"github.com/bolandrm/gofc/fc/pru"
 	"time"
 )
 
