@@ -49,12 +49,3 @@ void ReadRCValues(uint32_t *data) {
 //     enif_make_int(env, shared_mem->debug[5])
 //   );
 // }
-// 
-// static ErlNifFunc nif_funcs[] = {
-//   // {erl_function_name, erl_function_arity, c_function}
-//   {"enable_prus", 4, nif_enable_prus},
-//   {"read_rc_values", 0, nif_read_rc_values},
-//   {"read_debug_values", 0, nif_read_debug_values}
-// };
-// 
-// ERL_NIF_INIT(Elixir.ExFC.PruLoader, nif_funcs, NULL, NULL, NULL, NULL)

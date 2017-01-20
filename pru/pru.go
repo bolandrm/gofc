@@ -11,6 +11,7 @@ import "C"
 import "unsafe"
 import "fmt"
 import "os/exec"
+import "math"
 
 const basePath = "/root/gofc"
 
@@ -31,7 +32,11 @@ func Load() {
 
 func UpdateRC(data []uint32) {
 	C.ReadRCValues((*C.uint32_t)(&data[0]))
-	data[1] = 35
+
+	for i, val := range data {
+		scaledVal := float64(val) * 0.005
+		data[i] = uint32(math.Ceil(scaledVal - 0.5))
+	}
 }
 
 func loadPru(pruNum int) {
