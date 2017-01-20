@@ -34,10 +34,10 @@ PROJ_NAME=$(CURRENT_DIR)
 LINKER_COMMAND_FILE=./AM335x_PRU.cmd
 #LIBS=--library=../../../lib/rpmsg_lib.lib
 LIBS=
-INCLUDE=--include_path=.. --include_path=../shared_headers/pru_headers
+INCLUDE=--include_path=.. --include_path=../shared_headers/pru_headers --include_path=.
 STACK_SIZE=0x100
 HEAP_SIZE=0x100
-GEN_DIR=../../priv/rc_pru1
+GEN_DIR=../../.build/pru1
 
 #Common compiler and linker flags (Defined in 'PRU Optimizing C/C++ Compiler User's Guide)
 CFLAGS=-v3 -O2 --display_error_number --endian=little --hardware_mac=on --obj_directory=$(GEN_DIR) --pp_directory=$(GEN_DIR) -ppd -ppa
@@ -50,7 +50,7 @@ SOURCES=$(wildcard *.c)
 #Using .object instead of .obj in order to not conflict with the CCS build process
 OBJECTS=$(patsubst %,$(GEN_DIR)/%,$(SOURCES:.c=.object))
 
-all: printStart $(GEN_DIR)/data.bin printEnd
+all: printStart $(GEN_DIR)/pru1_data.bin printEnd
 
 printStart:
 	@echo ''
@@ -99,7 +99,7 @@ clean:
 # Includes the dependencies that the compiler creates (-ppd and -ppa flags)
 -include $(OBJECTS:%.object=%.pp)
 
-$(GEN_DIR)/data.bin: $(TARGET)
+$(GEN_DIR)/pru1_data.bin: $(TARGET)
 	$(PRU_CGT)/bin/hexpru bin.cmd $(TARGET)
-	mv text.bin $(GEN_DIR)
-	mv data.bin $(GEN_DIR)
+	mv text.bin $(GEN_DIR)/pru1_text.bin
+	mv data.bin $(GEN_DIR)/pru1_data.bin

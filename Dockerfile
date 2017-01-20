@@ -48,6 +48,11 @@ ENV AS=${CROSS_COMPILE}as \
 RUN curl -O https://storage.googleapis.com/golang/go1.8rc1.linux-amd64.tar.gz
 RUN tar -C /usr/local -xzf go1.8rc1.linux-amd64.tar.gz
 
+RUN a=c curl -O "http://downloads.ti.com/codegen/esd/cgt_public_sw/PRU/2.1.4/ti_cgt_pru_2.1.4_linux_installer_x86.bin"
+RUN chmod a+x ti_cgt_pru_2.1.4_linux_installer_x86.bin
+RUN /ti_cgt_pru_2.1.4_linux_installer_x86.bin
+ENV PRU_CGT /ti-cgt-pru_2.1.4
+
 ENV PATH "$PATH:/usr/local/go/bin"
 ENV GOPATH /go
 ENV GOOS linux
