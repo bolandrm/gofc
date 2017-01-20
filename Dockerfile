@@ -50,6 +50,13 @@ RUN tar -C /usr/local -xzf go1.8rc1.linux-amd64.tar.gz
 
 ENV PATH "$PATH:/usr/local/go/bin"
 ENV GOPATH /go
+ENV GOOS linux
+ENV GOARCH arm
+ENV GOARM 7
+ENV CGO_ENABLED 1
+
+COPY vendor/include /usr/include/
+COPY vendor/lib /usr/lib/
 
 WORKDIR /go/src/github.com/bolandrm/gofc
 RUN mkdir -p /go/src/github.com/bolandrm/gofc

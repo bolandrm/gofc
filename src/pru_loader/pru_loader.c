@@ -1,17 +1,17 @@
 #include "pru_loader.h"
 #include <stdio.h>
 #include <stdint.h>
-//#include <prussdrv.h>
-//#include <pruss_intc_mapping.h>
-// #include "shared_headers/types.h"
+#include <prussdrv.h>
+#include <pruss_intc_mapping.h>
+#include "shared_headers/types.h"
 
 void test() {
-  printf("Data file loaded\n");
+  printf("Data DF file loaded 8\n");
 }
 
 // #define MAX_BUF_LEN 1024
 // 
-// void load_pru(int pru, char *text_file, char *data_file);
+void load_pru(int pru, char *text_file, char *data_file);
 // 
 // static ERL_NIF_TERM
 // nif_enable_prus(ErlNifEnv *env, int argc, const ERL_NIF_TERM argv[]) {
@@ -71,23 +71,24 @@ void test() {
 // };
 // 
 // ERL_NIF_INIT(Elixir.ExFC.PruLoader, nif_funcs, NULL, NULL, NULL, NULL)
-// 
-// void load_pru(int pru, char *text_file, char *data_file) {
-//   prussdrv_init();
-//   if (prussdrv_open(PRU_EVTOUT_0) == -1) {
-//     printf("prussdrv_open() failed\n");
-//   }
-// 
-//   tpruss_intc_initdata pruss_intc_initdata = PRUSS_INTC_INITDATA;
-//   prussdrv_pruintc_init(&pruss_intc_initdata);
-// 
-//   if (prussdrv_load_datafile(pru, data_file) < 0) {
-//     fprintf(stderr, "Error loading %s\n", data_file);
-//   } else {
-//     printf("Data file loaded\n");
-//   }
-// 
-//   if (prussdrv_exec_program(pru, text_file) < 0) {
-//     fprintf(stderr, "Error loading %s\n", text_file);
-//   }
-// }
+
+
+void load_pru(int pru, char *text_file, char *data_file) {
+  prussdrv_init();
+  if (prussdrv_open(PRU_EVTOUT_0) == -1) {
+    printf("prussdrv_open() failed\n");
+  }
+
+  tpruss_intc_initdata pruss_intc_initdata = PRUSS_INTC_INITDATA;
+  prussdrv_pruintc_init(&pruss_intc_initdata);
+
+  if (prussdrv_load_datafile(pru, data_file) < 0) {
+    fprintf(stderr, "Error loading %s\n", data_file);
+  } else {
+    printf("Data file loaded\n");
+  }
+
+  if (prussdrv_exec_program(pru, text_file) < 0) {
+    fprintf(stderr, "Error loading %s\n", text_file);
+  }
+}
