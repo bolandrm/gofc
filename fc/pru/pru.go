@@ -42,6 +42,14 @@ func UpdateRC(data []uint32) {
 	}
 }
 
+func UpdateDebug(data []uint32) {
+	C.UpdateDebug((*C.uint32_t)(&data[0]))
+}
+
+func UpdateMpuData(data []int32) {
+	C.ReadMpuData((*C.int32_t)(&data[0]))
+}
+
 func loadPru(pruNum int) {
 	text := C.CString(fmt.Sprintf("%v/pru%v_text.bin", basePath, pruNum))
 	defer C.free(unsafe.Pointer(text))
@@ -49,5 +57,5 @@ func loadPru(pruNum int) {
 	data := C.CString(fmt.Sprintf("%v/pru%v_data.bin", basePath, pruNum))
 	defer C.free(unsafe.Pointer(data))
 
-	C.load_pru(C.int(pruNum), text, data)
+	C.LoadPRU(C.int(pruNum), text, data)
 }

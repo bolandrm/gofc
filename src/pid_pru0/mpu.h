@@ -69,7 +69,7 @@
 #define BIT_INT_STATUS_DATA         0x01
 
 uint8_t mpu_init();
-void mpu_read_gyro(axis_int16_t *gyro_rates);
-void mpu_read_accel(axis_int16_t *accel_raws);
+void mpu_read_gyro(axis_int32_t *gyro_rates);
+void mpu_read_accel(axis_int32_t *accel_raws);
 
 #endif

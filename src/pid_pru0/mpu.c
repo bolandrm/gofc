@@ -12,7 +12,7 @@ void mpu_write_reg(uint16_t addr, uint8_t data) {
 
 uint8_t mpu_read_byte(uint16_t addr) {
   i2c_start_transfer(MPU_I2C_ADDRESS);
-  i2c_write(MPU_REG_WHOAMI);
+  i2c_write(addr);
   i2c_end_transfer();
   i2c_request_from(MPU_I2C_ADDRESS, 1);
   return i2c_read();
@@ -20,13 +20,13 @@ uint8_t mpu_read_byte(uint16_t addr) {
 
 uint16_t mpu_read_word(uint16_t addr) {
   i2c_start_transfer(MPU_I2C_ADDRESS);
-  i2c_write(MPU_REG_WHOAMI);
+  i2c_write(addr);
   i2c_end_transfer();
   i2c_request_from(MPU_I2C_ADDRESS, 2);
   return (i2c_read() << 8) | i2c_read();
 }
 
-void mpu_read_gyro(axis_int16_t *gyro_rates) {
+void mpu_read_gyro(axis_int32_t *gyro_rates) {
   int16_t gyro_x = mpu_read_word(MPU_REG_GYRO_XOUT_H);
   int16_t gyro_y = mpu_read_word(MPU_REG_GYRO_YOUT_H);
   int16_t gyro_z = mpu_read_word(MPU_REG_GYRO_ZOUT_H);
@@ -36,7 +36,7 @@ void mpu_read_gyro(axis_int16_t *gyro_rates) {
   gyro_rates->z = -1 * gyro_z;
 }
 
-void mpu_read_accel(axis_int16_t *accel_raws) {
+void mpu_read_accel(axis_int32_t *accel_raws) {
   int16_t accel_x = mpu_read_word(MPU_REG_ACCEL_XOUT_H);
   int16_t accel_y = mpu_read_word(MPU_REG_ACCEL_YOUT_H);
   int16_t accel_z = mpu_read_word(MPU_REG_ACCEL_ZOUT_H);

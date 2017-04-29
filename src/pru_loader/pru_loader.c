@@ -4,7 +4,7 @@
 #include <pruss_intc_mapping.h>
 #include "shared_headers/types.h"
 
-void load_pru(int pru, char *text_file, char *data_file) {
+void LoadPRU(int pru, char *text_file, char *data_file) {
   prussdrv_init();
   if (prussdrv_open(PRU_EVTOUT_0) == -1) {
     printf("prussdrv_open() failed\n");
@@ -34,18 +34,23 @@ void ReadRCValues(uint32_t *data) {
   data[3] = shared_mem->rc_values[3];
 }
 
-// static ERL_NIF_TERM
-// nif_read_debug_values(ErlNifEnv *env, int argc, const ERL_NIF_TERM argv[]) {
-//   volatile shared_mem_t *shared_mem;
-//   prussdrv_map_prumem(PRUSS0_SHARED_DATARAM, (void **) &shared_mem);
-// 
-//   return enif_make_tuple6(
-//     env,
-//     enif_make_int(env, shared_mem->debug[0]),
-//     enif_make_int(env, shared_mem->debug[1]),
-//     enif_make_int(env, shared_mem->debug[2]),
-//     enif_make_int(env, shared_mem->debug[3]),
-//     enif_make_int(env, shared_mem->debug[4]),
-//     enif_make_int(env, shared_mem->debug[5])
-//   );
-// }
+void UpdateDebug(uint32_t *data) {
+  volatile shared_mem_t *shared_mem;
+  prussdrv_map_prumem(PRUSS0_SHARED_DATARAM, (void **) &shared_mem);
+
+  data[0] = shared_mem->debug[0];
+  data[1] = shared_mem->debug[1];
+  data[2] = shared_mem->debug[2];
+  data[3] = shared_mem->debug[3];
+  data[4] = shared_mem->debug[4];
+  data[5] = shared_mem->debug[5];
+}
+
+void ReadMpuData(int32_t *data) {
+  volatile shared_mem_t *shared_mem;
+  prussdrv_map_prumem(PRUSS0_SHARED_DATARAM, (void **) &shared_mem);
+
+  data[0] = shared_mem->gyro.x;
+  data[1] = shared_mem->gyro.y;
+  data[2] = shared_mem->gyro.z;
+}

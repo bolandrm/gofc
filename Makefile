@@ -10,7 +10,9 @@ build-compiler:
 
 GO_FILES:=$(shell find . -name "*.go" -print)
 C_FILES:=$(shell find . -name "*.c" -print)
-$(GEN_DIR)/$(BIN): $(GO_FILES) $(C_FILES)
+H_FILES:=$(shell find . -name "*.h" -print)
+MAKEFILES:=$(shell find . -name "Makefile" -print)
+$(GEN_DIR)/$(BIN): $(GO_FILES) $(C_FILES) $(H_FILES) $(MAKEFILES)
 	docker run -it -v $(shell pwd):/go/src/github.com/bolandrm/gofc gofc-builder make build
 
 push: $(GEN_DIR)/$(BIN)

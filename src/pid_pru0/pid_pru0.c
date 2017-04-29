@@ -16,13 +16,19 @@ void init();
 void main(void) {
   init();
 
+  axis_int32_t gyro_data;
+
   while(1) {
+    mpu_read_gyro(&shared_mem->gyro);
+
     shared_mem->debug[0] = ((CM_PER_I2C1_CLKCTRL >> 16) & 0x03);
     shared_mem->debug[1] = 10125;
-    shared_mem->debug[2] = 0;
-    shared_mem->debug[3] = 12347;
+    shared_mem->debug[2] = ++shared_mem->debug[2];
+    shared_mem->debug[3] = 0;
     shared_mem->debug[4] = I2C1_CON;
     shared_mem->debug[5] = CM_PER_I2C1_CLKCTRL;
+
+    __delay_cycles(100 * MILLIS_TO_CYCLES);
   }
 }
 
