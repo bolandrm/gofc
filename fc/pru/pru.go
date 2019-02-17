@@ -2,7 +2,7 @@ package pru
 
 /*
 #cgo CFLAGS: -I${SRCDIR}/../../src/pru_loader
-#cgo LDFLAGS: -L${SRCDIR}/../../.build -lpruloader -lprussdrv
+#cgo LDFLAGS: -L${SRCDIR}/../../vendor/lib  -L${SRCDIR}/../../.build -lpruloader -static -lprussdrv
 #include <stdlib.h>
 #include <stdint.h>
 #include "pru_loader.h"
@@ -16,7 +16,7 @@ import (
 	"unsafe"
 )
 
-const basePath = "/root/gofc"
+const basePath = "/home/debian/gofc"
 
 func Load() {
 	fmt.Println("PRU setup...")

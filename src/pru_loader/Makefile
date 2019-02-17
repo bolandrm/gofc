@@ -5,11 +5,11 @@ OBJ=pru_loader.o
 
 .PHONY: all clean
 
-all: $(GEN_DIR)/$(ARCHIVE) 
+all: $(GEN_DIR)/$(ARCHIVE)
 
 $(GEN_DIR)/$(OBJ): *.c *.h ../shared_headers/*.h
 	@mkdir -p $(GEN_DIR)
-	$(CC) -c -fPIC -O3 -std=c99 -finline-functions -Wall -Wmissing-prototypes -I. -I.. -lprussdrv -o $@ pru_loader.c
+	$(CC) -c -fPIC -O3 -std=c99 -finline-functions -Wall -Wmissing-prototypes -I. -I.. -I../../vendor/include -static -lprussdrv -o $@ pru_loader.c
 	$(info building libpruloader.a)
 
 $(GEN_DIR)/$(ARCHIVE): $(GEN_DIR)/$(OBJ)
